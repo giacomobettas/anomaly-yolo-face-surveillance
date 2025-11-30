@@ -1,0 +1,20 @@
+# Core ML and CV
+numpy
+opencv-python
+matplotlib
+
+# Deep learning for autoencoder
+tensorflow
+
+# YOLOv8 (Ultralytics)
+ultralytics
+torch
+torchvision
+
+# Face recognition
+face_recognition
+dlib
+
+# Utility
+tqdm
+PyYAML

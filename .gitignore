@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+
+# Model artifacts
+models/
+checkpoints/
+outputs/
+logs/
+
+# Videos
+videos/
+
+# Face encodings cache
+face_encodings.npy
+
+# Jupyter
+.ipynb_checkpoints/
