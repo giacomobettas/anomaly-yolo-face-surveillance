@@ -45,7 +45,7 @@ def load_face_encodings(faces_root: str) -> Dict[str, List[np.ndarray]]:
             "face_recognition library is not available. "
             "Install it to use face-based identification."
         )
-        
+
     encodings: Dict[str, List[np.ndarray]] = {}
 
     if not os.path.isdir(faces_root):
@@ -68,12 +68,12 @@ def load_face_encodings(faces_root: str) -> Dict[str, List[np.ndarray]]:
                 continue
 
             img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-            boxes = face_recognition.face_locations(img_rgb, model="hog")
+            boxes = face_recognition.face_locations(img_rgb, model="hog")  # type: ignore[arg-type]
             if not boxes:
                 continue
 
             # use the first detected face
-            encs = face_recognition.face_encodings(img_rgb, known_face_locations=boxes)
+            encs = face_recognition.face_encodings(img_rgb, known_face_locations=boxes)  # type: ignore[arg-type]
             if encs:
                 label_encs.append(encs[0])
 
@@ -105,7 +105,7 @@ def identify_face(
     if not _FACE_LIB_AVAILABLE:
         # Gracefully degrade: no face library -> always unknown
         return "unknown", None
-        
+
     if frame is None or not known_encodings:
         return "unknown", None
 
@@ -121,7 +121,7 @@ def identify_face(
     if x2 <= x1 or y2 <= y1:
         return "unknown", None
 
-    # Crop region (upper body / face likely near top of bbox)
+    # Crop the full person bounding box; the face (if visible) should be inside it.
     crop = frame[y1:y2, x1:x2]
     if crop.size == 0:
         return "unknown", None
@@ -132,11 +132,11 @@ def identify_face(
     else:
         crop_rgb = crop
 
-    boxes = face_recognition.face_locations(crop_rgb, model="hog")
+    boxes = face_recognition.face_locations(crop_rgb, model="hog")  # type: ignore[arg-type]
     if not boxes:
         return "unknown", None
 
-    encs = face_recognition.face_encodings(crop_rgb, known_face_locations=boxes)
+    encs = face_recognition.face_encodings(crop_rgb, known_face_locations=boxes)  # type: ignore[arg-type]
     if not encs:
         return "unknown", None
 
@@ -152,7 +152,7 @@ def identify_face(
     if not all_encs:
         return "unknown", None
 
-    distances = face_recognition.face_distance(all_encs, face_enc)
+    distances = face_recognition.face_distance(all_encs, face_enc)  # type: ignore[arg-type]
     idx_best = int(np.argmin(distances))
     best_label = all_labels[idx_best]
     best_dist = float(distances[idx_best])
