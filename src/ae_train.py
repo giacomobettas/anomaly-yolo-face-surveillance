@@ -107,9 +107,8 @@ def main():
     if not os.path.isdir(args.data_dir):
         raise FileNotFoundError(f"Data directory not found: {args.data_dir}")
 
-    # Create training dataset from directory
-    # We treat all images as a single class (no labels needed)
-    dataset = tf.keras.utils.image_dataset_from_directory(
+    # Training and validation datasets from the SAME directory
+    train_ds = tf.keras.utils.image_dataset_from_directory(
         args.data_dir,
         labels=None,
         label_mode=None,
@@ -118,11 +117,22 @@ def main():
         batch_size=args.batch_size,
         shuffle=True,
         validation_split=args.val_split,
-        subset="both",
+        subset="training",
         seed=42,
     )
 
-    train_ds, val_ds = dataset
+    val_ds = tf.keras.utils.image_dataset_from_directory(
+        args.data_dir,
+        labels=None,
+        label_mode=None,
+        image_size=image_size,
+        color_mode=args.color_mode,
+        batch_size=args.batch_size,
+        shuffle=True,
+        validation_split=args.val_split,
+        subset="validation",
+        seed=42,
+    )
 
     # Normalize to [0,1] and map (x -> (x,x)) for AE
     def prep(x):
