@@ -213,6 +213,7 @@ For each detected person:
 
    ```text
    center_y_norm(t) = ((y1 + y2) / 2) / frame_height
+   ```
 
    and compute an FFT-derived score over the last ~N seconds (default: 10s).
 
@@ -222,7 +223,7 @@ The final score is a weighted combination:
 
 ```text
 score = w_recon * recon_score + w_posture * posture_score + w_fft * fft_score
-
+```
 
 All weights and thresholds are CLI-configurable:
 
