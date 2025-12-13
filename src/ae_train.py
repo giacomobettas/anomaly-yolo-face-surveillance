@@ -139,8 +139,9 @@ def main():
         x = tf.cast(x, tf.float32) / 255.0
         return x, x
 
-    train_ds = train_ds.map(prep)
-    val_ds = val_ds.map(prep)
+    AUTOTUNE = tf.data.AUTOTUNE
+    train_ds = train_ds.map(prep, num_parallel_calls=AUTOTUNE).prefetch(AUTOTUNE)
+    val_ds = val_ds.map(prep, num_parallel_calls=AUTOTUNE).prefetch(AUTOTUNE)
 
     # Build model
     model = build_autoencoder(input_shape=input_shape, latent_dim=args.latent_dim)
