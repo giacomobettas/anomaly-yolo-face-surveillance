@@ -1,4 +1,4 @@
-# # Real-Time-Oriented CCTV Anomaly Scoring (YOLOv8 + Optional Face ID + Per-Camera Autoencoder + FFT Motion Feature)
+# Real-Time-Oriented CCTV Anomaly Scoring (YOLOv8 + Optional Face ID + Per-Camera Autoencoder + FFT Motion Feature)
 
 End-to-end **video anomaly scoring** pipeline for home/elderly surveillance scenarios:
 
@@ -8,7 +8,7 @@ End-to-end **video anomaly scoring** pipeline for home/elderly surveillance scen
 - **FFT motion feature** over the normalized vertical bbox center trajectory
 - **interpretable anomaly scoring** + CSV logging + optional annotated video output
 
-This repository represents a **final iteration** of a thesis/internship project in video-based anomaly detection for home surveillance of the elderly, focused on **clean engineering**, **reproducibility**, and **realistic CCTV constraints**.
+This repository represents the **final iteration** of my **thesis internship project** in video-based anomaly detection for elderly home surveillance, focused on **clean engineering**, **reproducibility**, and **realistic CCTV constraints**.
 
 ---
 
@@ -96,10 +96,11 @@ anomaly-yolo-face-surveillance/
   notebooks/
     colab_demo.ipynb       # Drive-persistent Colab demo (train + inference + outputs)
 
-  requirements.txt
+  requirements.txt                  # core dependencies (YOLO + AE + scoring)
+  requirements-optional-face.txt    # optional Face ID deps (face_recognition + dlib)
   README.md
   LICENSE
-````
+```
 
 ---
 
@@ -140,6 +141,8 @@ videos/
 
 ## Installation
 
+Install core dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -151,6 +154,12 @@ on some platforms (especially Windows). The repo is designed so that:
 
 * if `face_recognition` is missing, identity falls back to `"unknown"`;
 * YOLO + AE + FFT scoring still run.
+
+If you want identity support, install the optional face dependencies:
+
+```bash
+pip install -r requirements-optional-face.txt
+```
 
 ---
 
@@ -267,6 +276,10 @@ MyDrive/anomaly_yolo_face_surveillance/
   outputs/
 ```
 
+In Colab, you can optionally install face recognition by running:
+`pip install -r requirements-optional-face.txt`
+(and installing any required system packages).
+
 ---
 
 ## Testing
@@ -299,4 +312,10 @@ A full production deployment typically adds:
 * alert delivery (webhook/SMS/email) with monitoring and audit logs
 * calibration/validation pipelines for thresholds per camera
 
-Those components are intentionally **out of scope** here to keep the repository clear, reproducible, and portfolio-ready.
+Those components are intentionally **out of scope** here to keep the repository clear and reproducible.
+
+---
+
+## License
+
+Released under the license in the `LICENSE` file.
