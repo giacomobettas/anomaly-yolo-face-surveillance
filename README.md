@@ -210,18 +210,19 @@ For each detected person:
 
 3. **FFT motion score (supporting)**
    We maintain a rolling window of the normalized vertical bbox center:
-   [
-   center_y_norm(t) = \frac{(y1+y2)/2}{frame_height}
-   ]
+
+   ```text
+   center_y_norm(t) = ((y1 + y2) / 2) / frame_height
+
    and compute an FFT-derived score over the last ~N seconds (default: 10s).
 
 ### Combined score
 
 The final score is a weighted combination:
 
-[
-score = w_{recon}\cdot recon_score + w_{posture}\cdot posture_score + w_{fft}\cdot fft_score
-]
+```text
+score = w_recon * recon_score + w_posture * posture_score + w_fft * fft_score
+
 
 All weights and thresholds are CLI-configurable:
 
