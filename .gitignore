@@ -24,3 +24,37 @@ face_encodings.npy
 
 # Jupyter
 .ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+
+# Type checking / tooling caches
+.mypy_cache/
+.ruff_cache/
+
+# Standalone model artifacts (in case they are saved outside ignored folders)
+*.h5
+*.keras
+*.pt
+*.pth
+*.onnx
+
+# Standalone media artifacts (in case they are saved outside ignored folders)
+*.mp4
+*.avi
+*.mov
+*.mkv
