@@ -65,6 +65,8 @@ identities simply degrade to `"unknown"`.
   - FFT motion feature (`src/fft_buffer.py`)
   - combined anomaly scoring (`src/anomaly_rules.py`)
   - CSV logs + optional annotated video (`src/process_video.py`)
+  - AE-only inference utilities for debugging/evaluation (`src/ae_infer.py`)
+
 
 ### Tests
 - Lightweight smoke tests (AE forward pass, FFT buffer sanity, optional face test skip).
@@ -84,6 +86,7 @@ anomaly-yolo-face-surveillance/
     fft_buffer.py          # Per-identity rolling motion buffer + FFT-based motion score
     anomaly_rules.py       # Scoring logic: recon + posture + FFT -> combined score + anomaly flag
     process_video.py       # End-to-end pipeline: video -> detections -> scores -> CSV/video outputs
+    ae_infer.py            # AE-only inference utilities (reconstruction error on crops/images)
     utils.py               # Utilities (path helpers, normalization, mse)
     video_io.py            # Video open/write helpers + frame annotation overlay
 
