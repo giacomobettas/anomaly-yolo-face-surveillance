@@ -95,6 +95,14 @@ anomaly-yolo-face-surveillance/
 
   notebooks/
     colab_demo.ipynb       # Drive-persistent Colab demo (train + inference + outputs)
+  
+  scripts/
+    generate_synthetic_crops.py  # Generates tiny synthetic crop demo dataset
+
+  data/
+    README.md              # Data layout + demo dataset notes
+    faces/
+      README.md            # Optional face gallery instructions
 
   requirements.txt                  # core dependencies (YOLO + AE + scoring)
   requirements-optional-face.txt    # optional Face ID deps (face_recognition + dlib)
@@ -115,8 +123,9 @@ Video-to-crops extraction can be handled upstream; this repo focuses on **traini
 data/
   cam1/
     normal_crops/
-      *.jpg
-      *.png
+      demo/                # Optional tiny synthetic demo set
+        *.jpg / *.png
+      ...                  # Your own normal crops
 ```
 
 ### Optional: known faces (for identity)
@@ -125,16 +134,34 @@ data/
 data/
   faces/
     person1/
-      *.jpg
+      *.jpg / *.png
     person2/
-      *.jpg
+      *.jpg / *.png
 ```
 
-### Input videos (for end-to-end processing)
+### Videos (for end-to-end processing)
 
-```text
-videos/
-  cam1_example.mp4
+Videos can be stored anywhere; you provide the path via CLI:
+
+```bash
+python -m src.process_video --video_path /path/to/video.mp4 ...
+```
+
+## Synthetic demo crops
+
+`data/cam1/normal_crops/demo/` contains a small synthetic set meant only for:
+
+* verifying the training pipeline runs
+* running smoke tests quickly
+
+You can regenerate this demo set using the script:
+
+```bash
+python scripts/generate_synthetic_crops.py
+```
+Example:
+```bash
+python scripts/generate_synthetic_crops.py --num_images 50 --height 128 --width 64 --color_mode rgb
 ```
 
 ---
