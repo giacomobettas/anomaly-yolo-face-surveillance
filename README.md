@@ -232,14 +232,17 @@ python -m src.process_video \
 For each detected person:
 
 1. **Reconstruction error (primary)**
-      The AE reconstructs the person crop; we compute pixel-wise MSE between input and reconstruction.
+   
+   The AE reconstructs the person crop; we compute pixel-wise MSE between input and reconstruction.
 
 2. **Posture score (supporting)**
-      A soft feature derived from bbox geometry (normalized by frame height). This is intentionally not a hard
-      fall rule, to reduce false positives (e.g., a person lying on a bed).
+   
+   A soft feature derived from bbox geometry (normalized by frame height). This is intentionally not a hard
+   fall rule, to reduce false positives (e.g., a person lying on a bed).
 
 3. **FFT motion score (supporting)**
-      We maintain a rolling window of the normalized vertical bbox center:
+   
+   We maintain a rolling window of the normalized vertical bbox center:
 
    ```math
    center\_y\_norm(t) = \frac{\frac{y_1 + y_2}{2}}{\text{frame\_height}}
